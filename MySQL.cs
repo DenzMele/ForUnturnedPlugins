@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Logger = Rocket.Core.Logging.Logger;
 public class MySQL
 {
-    private static readonly string connStr = "server=127.0.0.1;user=root;database=UnturnedServer;password=;Pooling=true";
+    private static readonly string connStr = "server=127.0.0.1;user=root;database=UnturnedServer;password=;Pooling=true"; // Ваши данные от MySQL
 
-    public static void Test()
+    public static void Test() // Проверка подключения к БД, вставлять в Load()
     {
         using (MySqlConnection conn = new MySqlConnection(connStr))
         {
@@ -25,7 +25,7 @@ public class MySQL
         }
     }
 
-    public static void Query(MySqlCommand command)
+    public static void Query(MySqlCommand command) // Изменения/добавление чего то
     {
         if (command == null || command.CommandText.Length < 1) { Logger.Log("Wrong command argument: null or empty."); return; }
         using (MySqlConnection conn = new MySqlConnection(connStr))
@@ -44,7 +44,7 @@ public class MySQL
         }
     }
 
-    public static DataTable QueryRead(MySqlCommand command)
+    public static DataTable QueryRead(MySqlCommand command) // Чтение столбца
     {
         if (command == null || command.CommandText.Length < 1) { Logger.Log("Wrong command argument: null or empty."); return null; }
         using (MySqlConnection connection = new MySqlConnection(connStr))
@@ -71,7 +71,7 @@ public class MySQL
 
     }
 
-    public static async Task<DataTable> QueryReadAsync(MySqlCommand command)
+    public static async Task<DataTable> QueryReadAsync(MySqlCommand command) // тоже самое только асинхронное
     {
         if (command == null || command.CommandText.Length < 1) { Logger.Log("Wrong command argument: null or empty."); return null; }
         using (MySqlConnection connection = new MySqlConnection(connStr))
@@ -94,7 +94,7 @@ public class MySQL
         }
 
     }
-    public static DataTable GetPlayerFromMySQL(UnturnedPlayer player)
+    public static DataTable GetPlayerFromMySQL(UnturnedPlayer player) // Получить игрока
         {
             string selectQuery = "SELECT * FROM Players WHERE CSteamID = @id";
             MySqlCommand selectCommand = new MySqlCommand(selectQuery);
@@ -103,7 +103,7 @@ public class MySQL
             return tb;
         }
 
-     public static void SetPlayerData(UnturnedPlayer up, string Set, int New)
+     public static void SetPlayerData(UnturnedPlayer up, string Set, int New) // Обновить данные у игрока
         {
             string insertQueryt = $"UPDATE Players SET {Set} = @{Set} WHERE CSteamID = @CSteamID";
             MySqlCommand insertCommandt = new MySqlCommand(insertQueryt);
